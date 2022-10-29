@@ -27,13 +27,13 @@ export default function AssetTable() {
   }
 
   return (
-    <TableContainer fontSize="sm">
+    <TableContainer fontSize="13px">
       <Table>
         <Thead>
           <Th>기호</Th>
           <Th textAlign="right">현재가</Th>
           <Th textAlign="right">변동률</Th>
-          <Th textAlign="right">거래금액(24H)</Th>
+          <Th textAlign="right">거래금액</Th>
         </Thead>
         <Tbody>
           {Object.entries(current.data).map(([name, value]) => {
