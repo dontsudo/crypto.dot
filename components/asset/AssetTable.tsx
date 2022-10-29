@@ -28,7 +28,7 @@ export default function AssetTable() {
     <>
       <Box>
         <Grid
-          templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
+          templateColumns="1fr minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 2fr)"
           columnGap={2}
           borderBottom="1px solid"
           borderBottomColor="gray.200"

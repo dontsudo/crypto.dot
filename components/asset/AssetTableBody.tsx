@@ -16,7 +16,7 @@ export default function AssetTableBody({ prev, current }: AssetTableBodyProps) {
         return (
           <Grid
             key={name}
-            templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
+            templateColumns="1fr minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 2fr)"
             columnGap={2}
             alignItems="center"
             pt={4}
@@ -26,10 +26,10 @@ export default function AssetTableBody({ prev, current }: AssetTableBodyProps) {
           >
             <GridItem>{name}</GridItem>
             <GridItem textAlign="right" bgColor={isPriceIncrease ? 'red.400' : undefined}>
-              {value.closing_price}
+              {Number(value.closing_price).toLocaleString()}
             </GridItem>
-            <GridItem textAlign="right">{value.fluctate_rate_24H}%</GridItem>
-            <GridItem textAlign="right">{Math.ceil(+value.acc_trade_value_24H)}원</GridItem>
+            <GridItem textAlign="right">{Number(value.fluctate_rate_24H).toLocaleString()}%</GridItem>
+            <GridItem textAlign="right">{Math.ceil(+value.acc_trade_value_24H).toLocaleString()}원</GridItem>
           </Grid>
         );
       })}
