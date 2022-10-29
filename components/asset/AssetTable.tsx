@@ -20,7 +20,7 @@ export default function AssetTable() {
 
   if (!prev || !current || (!current && isLoading)) {
     return (
-      <Center>
+      <Center h="calc(100vh)">
         <Spinner />
       </Center>
     );
