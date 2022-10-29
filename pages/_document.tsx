@@ -1,5 +1,6 @@
-import { ColorModeScript } from '@chakra-ui/react';
+import React from 'react';
 import { NextPage } from 'next';
+import { ColorModeScript } from '@chakra-ui/react';
 import NextDocument, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 
 const Document: NextPage = () => (

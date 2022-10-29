@@ -14,7 +14,6 @@ export type TickerState = {
 
 export const fetchTickers = createAsyncThunk('ticker/fetchTickers', async () => {
   const { data } = await tickerAPI.fetchTickers();
-
   return data;
 });
 

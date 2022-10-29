@@ -1,15 +1,60 @@
-import { useEffect } from 'react';
-
+import React, { useEffect } from 'react';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { fetchTickers, selectTicker } from '../../services/ticker/tickerSlice';
 import Loader from '../shared/Loader';
-import AssetTableBody from './AssetTableBody';
 
-export default function AssetTable() {
+import type { Ticker } from '../../services/ticker/tickerTypes';
+
+type Direction = 'up' | 'down' | 'maintain';
+
+type AssetTableRowProps = {
+  name: string;
+  value: Ticker;
+  prevValue: Ticker;
+};
+
+const AssetTableRow: React.FC<AssetTableRowProps> = ({ name, value, prevValue }) => {
+  const direction: Direction =
+    prevValue.closing_price < value.closing_price
+      ? 'up'
+      : prevValue.closing_price > value.closing_price
+      ? 'down'
+      : 'maintain';
+
+  return (
+    <Grid
+      templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
+      columnGap={2}
+      borderBottom="1px"
+      borderBottomColor="gray.200"
+      pt={4}
+      pb={4}
+    >
+      <GridItem>{name}</GridItem>
+      <GridItem
+        textAlign="right"
+        outline={direction !== 'maintain' ? '1px solid' : undefined}
+        outlineColor={
+          direction === 'up' ? 'green.200' : direction === 'down' ? 'red.200' : undefined
+        }
+        textColor={+value.fluctate_rate_24H > 0 ? 'green.200' : 'red.200'}
+      >
+        {Number(value.closing_price).toLocaleString()}
+      </GridItem>
+      <GridItem
+        textAlign="right"
+        textColor={+value.fluctate_rate_24H > 0 ? 'green.200' : 'red.200'}
+      >
+        {Number(value.fluctate_rate_24H)}%
+      </GridItem>
+      <GridItem textAlign="right">{Number(value.acc_trade_value_24H).toLocaleString()}</GridItem>
+    </Grid>
+  );
+};
+
+const AssetTable: React.FC = () => {
   const dispatch = useAppDispatch();
-
   const { prev, current, isLoading } = useAppSelector(selectTicker);
 
   useEffect(() => {
@@ -25,30 +70,32 @@ export default function AssetTable() {
   }
 
   return (
-    <>
-      <Box>
-        <Grid
-          templateColumns="1fr minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 2fr)"
-          columnGap={2}
-          borderBottom="1px solid"
-          borderBottomColor="gray.200"
-          pb={2}
-        >
-          <GridItem fontSize="0.875rem" lineHeight="1.25rem">
-            기호
-          </GridItem>
-          <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
-            현재가
-          </GridItem>
-          <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
-            변동률
-          </GridItem>
-          <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
-            거래금액
-          </GridItem>
-        </Grid>
-        <AssetTableBody current={current} prev={prev} />
-      </Box>
-    </>
+    <Box>
+      <Grid
+        templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
+        columnGap={2}
+        borderBottom="1px"
+        borderBottomColor="gray.200"
+        pb={2}
+      >
+        <GridItem fontSize="0.875rem" lineHeight="1.25rem">
+          기호
+        </GridItem>
+        <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
+          현재가
+        </GridItem>
+        <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
+          변동률
+        </GridItem>
+        <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
+          거래금액
+        </GridItem>
+      </Grid>
+      {Object.entries(current.data).map(([name, value]) => (
+        <AssetTableRow key={name} name={name} value={value} prevValue={prev.data[name]} />
+      ))}
+    </Box>
   );
-}
+};
+
+export default AssetTable;

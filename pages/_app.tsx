@@ -1,9 +1,9 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
-
 import { store } from '../services/store';
+
+import type { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
