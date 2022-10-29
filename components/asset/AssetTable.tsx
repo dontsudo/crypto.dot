@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 
-import { Center, Spinner, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { fetchTickers, selectTicker } from '../../services/ticker/tickerSlice';
+import Loader from '../shared/Loader';
+import AssetTableBody from './AssetTableBody';
 
 export default function AssetTable() {
   const dispatch = useAppDispatch();
@@ -19,39 +21,34 @@ export default function AssetTable() {
   }, [dispatch]);
 
   if (!prev || !current || (!current && isLoading)) {
-    return (
-      <Center h="calc(100vh)">
-        <Spinner />
-      </Center>
-    );
+    return <Loader />;
   }
 
   return (
-    <TableContainer fontSize="13px">
-      <Table>
-        <Thead>
-          <Th>기호</Th>
-          <Th textAlign="right">현재가</Th>
-          <Th textAlign="right">변동률</Th>
-          <Th textAlign="right">거래금액</Th>
-        </Thead>
-        <Tbody>
-          {Object.entries(current.data).map(([name, value]) => {
-            const isPriceIncrease = prev.data[name].closing_price < value.closing_price;
-
-            return (
-              <Tr key={name}>
-                <Td>{name}</Td>
-                <Td bgColor={isPriceIncrease ? 'red.400' : undefined} isNumeric>
-                  {value.closing_price}
-                </Td>
-                <Td isNumeric>{value.fluctate_rate_24H}%</Td>
-                <Td isNumeric>{Math.ceil(+value.acc_trade_value_24H / 100_0000)} 백만원</Td>
-              </Tr>
-            );
-          })}
-        </Tbody>
-      </Table>
-    </TableContainer>
+    <>
+      <Box>
+        <Grid
+          templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
+          columnGap={2}
+          borderBottom="1px solid"
+          borderBottomColor="gray.200"
+          pb={2}
+        >
+          <GridItem fontSize="0.875rem" lineHeight="1.25rem">
+            기호
+          </GridItem>
+          <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
+            현재가
+          </GridItem>
+          <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
+            변동률
+          </GridItem>
+          <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
+            거래금액
+          </GridItem>
+        </Grid>
+        <AssetTableBody current={current} prev={prev} />
+      </Box>
+    </>
   );
 }
