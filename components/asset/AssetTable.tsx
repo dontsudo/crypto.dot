@@ -31,9 +31,9 @@ export default function AssetTable() {
       <Table>
         <Thead>
           <Th>기호</Th>
-          <Th>현재가</Th>
-          <Th>전일대비</Th>
-          <Th>거래대금</Th>
+          <Th textAlign="right">현재가</Th>
+          <Th textAlign="right">변동률</Th>
+          <Th textAlign="right">거래금액(24H)</Th>
         </Thead>
         <Tbody>
           {Object.entries(current.data).map(([name, value]) => {
@@ -42,9 +42,11 @@ export default function AssetTable() {
             return (
               <Tr key={name}>
                 <Td>{name}</Td>
-                <Td bgColor={isPriceIncrease ? 'red.400' : undefined}>{value.closing_price}</Td>
-                <Td>{value.fluctate_rate_24H}%</Td>
-                <Td>{Math.ceil(+value.acc_trade_value)}</Td>
+                <Td bgColor={isPriceIncrease ? 'red.400' : undefined} isNumeric>
+                  {value.closing_price}
+                </Td>
+                <Td isNumeric>{value.fluctate_rate_24H}%</Td>
+                <Td isNumeric>{Math.ceil(+value.acc_trade_value_24H / 100_0000)} 백만원</Td>
               </Tr>
             );
           })}
