@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
+
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { fetchTickers, selectTicker } from '../../services/ticker/tickerSlice';
 import Loader from '../shared/Loader';
@@ -48,7 +49,9 @@ const AssetTableRow: React.FC<AssetTableRowProps> = ({ name, value, prevValue })
       >
         {Number(value.fluctate_rate_24H)}%
       </GridItem>
-      <GridItem textAlign="right">{Number(value.acc_trade_value_24H).toLocaleString()}</GridItem>
+      <GridItem textAlign="right">
+        {Math.floor(Number(value.acc_trade_value_24H) / 10_000).toLocaleString()}
+      </GridItem>
     </Grid>
   );
 };
@@ -88,7 +91,7 @@ const AssetTable: React.FC = () => {
           변동률
         </GridItem>
         <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
-          거래금액
+          거래금액 (만원)
         </GridItem>
       </Grid>
       {Object.entries(current.data).map(([name, value]) => (
