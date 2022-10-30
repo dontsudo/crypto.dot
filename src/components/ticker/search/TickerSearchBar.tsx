@@ -1,16 +1,13 @@
-import { Search2Icon } from "@chakra-ui/icons";
-import { Input, InputGroup, InputLeftElement, Text } from "@chakra-ui/react";
-import React, { useCallback } from "react";
+import { Search2Icon } from '@chakra-ui/icons';
+import { Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react';
+import React, { useCallback } from 'react';
 
 type TickerSearchBarProps = {
   searchValue: string;
   setSearchValue: (value: string) => void;
 };
 
-const TickerSearchBar: React.FC<TickerSearchBarProps> = ({
-  searchValue,
-  setSearchValue,
-}) => {
+const TickerSearchBar: React.FC<TickerSearchBarProps> = ({ searchValue, setSearchValue }) => {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchValue(e.target.value);

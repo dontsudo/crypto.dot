@@ -1,13 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { RootState } from '../store';
+import { RootState } from '../../store';
 import * as tickerAPI from './tickerAPI';
 import type { TickerResponse } from './tickerTypes';
 
 export type TickerState = {
   prev: TickerResponse | null;
   current: TickerResponse | null;
-
   isLoading: boolean;
 };
 
@@ -19,7 +18,6 @@ export const fetchTickers = createAsyncThunk('ticker/fetchTickers', async () => 
 const initialState: TickerState = {
   prev: null,
   current: null,
-
   isLoading: false,
 };
 
@@ -35,7 +33,6 @@ export const tickerSlice = createSlice({
       .addCase(fetchTickers.fulfilled, (state, action) => {
         state.prev = state.current;
         state.current = action.payload;
-
         state.isLoading = false;
       })
       .addCase(fetchTickers.rejected, (state) => {

@@ -1,11 +1,11 @@
-import { Container } from "@chakra-ui/react";
-import { Helmet } from "react-helmet";
+import { Container } from '@chakra-ui/react';
+import { Helmet } from 'react-helmet';
 
-import Footer from "./components/shared/Footer";
-import Header from "./components/shared/Header";
-import TickerTable from "./components/ticker/TickerTable";
+import Footer from './components/shared/Footer';
+import Header from './components/shared/Header';
+import TickerTable from './components/ticker/TickerTable';
 
-const MyApp: React.FC = () => {
+const App: React.FC = () => {
   return (
     <>
       <Helmet>
@@ -22,4 +22,4 @@ const MyApp: React.FC = () => {
   );
 };
 
-export default MyApp;
+export default App;
