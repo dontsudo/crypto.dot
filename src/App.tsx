@@ -10,10 +10,10 @@ const App: React.FC = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>🐂 Crypto.Dot</title>
+        <title>🐂 Crypto Watch</title>
         <link rel="canonical" href="http://crypto-dot.vercel.app" />
       </Helmet>
-      <Container>
+      <Container maxW={{ md: 'xl' }}>
         <Header />
         <TickerTable />
         <Footer />

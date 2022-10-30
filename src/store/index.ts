@@ -3,7 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 import storage from './storage';
 import tickerReducer from '../services/ticker/tickerSlice';
-import tagReducer from '../services/tag/tagSlice';
+import tagReducer from '../services/watch/watchSlice';
 
 const reducers = combineReducers({
   ticker: tickerReducer,

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../store';
-import * as tickerAPI from './tickerAPI';
+import tickerAPI from './tickerAPI';
 import type { TickerResponse } from './tickerTypes';
 
 export type TickerState = {
@@ -10,10 +10,13 @@ export type TickerState = {
   isLoading: boolean;
 };
 
-export const fetchTickers = createAsyncThunk('ticker/fetchTickers', async () => {
-  const response = await tickerAPI.fetchTickers();
-  return response.data;
-});
+export const fetchTickers = createAsyncThunk(
+  'ticker/fetchTickers',
+  async (source: 'bithumb' | 'upbit') => {
+    const response = await tickerAPI[source].fetchTickerList();
+    return response.data;
+  }
+);
 
 const initialState: TickerState = {
   prev: null,

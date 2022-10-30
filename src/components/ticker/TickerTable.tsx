@@ -5,10 +5,8 @@ import React, { useEffect, useState } from 'react';
 import Loader from '../shared/Loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { fetchTickers, selectTicker } from '../../services/ticker/tickerSlice';
-import { removeTag, selectTag } from '../../services/tag/tagSlice';
 import { Ticker } from '../../services/ticker/tickerTypes';
 import TickerSearchBar from './search/TickerSearchBar';
-import TickerSearchTag from './search/TickerSearchTag';
 
 type TrendDirection = 'up' | 'down' | 'maintain';
 
@@ -65,11 +63,10 @@ const TickerTable: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const { prev, current, isLoading } = useAppSelector(selectTicker);
-  const { pinned } = useAppSelector(selectTag);
 
   useEffect(() => {
     const id = setInterval(() => {
-      dispatch(fetchTickers());
+      dispatch(fetchTickers('bithumb'));
     }, 500);
 
     return () => clearInterval(id);
@@ -84,12 +81,9 @@ const TickerTable: React.FC = () => {
   );
 
   return (
-    <>
+    <Box className="ticker-table">
       <Box pb={4}>
         <TickerSearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
-        {pinned.map((tag: string) => (
-          <TickerSearchTag key={tag} name={tag} handleClick={() => dispatch(removeTag(tag))} />
-        ))}
       </Box>
       <Grid
         templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
@@ -114,7 +108,7 @@ const TickerTable: React.FC = () => {
       {Object.entries(filteredTickers).map(([name, value]) => (
         <TickerTableRow key={name} name={name} value={value} prevValue={prev.data[name]} />
       ))}
-    </>
+    </Box>
   );
 };
 
