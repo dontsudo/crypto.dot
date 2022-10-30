@@ -4,6 +4,10 @@
   <img style="margin: auto 0;" width="437" alt="image" src="https://user-images.githubusercontent.com/50140505/198860072-086c171f-d815-4fad-8173-1d8b1d52b68b.png">
 </p>
 
+## 데모
+
+- https://crypto-dot.vercel.app/
+
 ## 목적 
 
 - nextjs + @reduxjs/toolkit 연습을 위해 만든 코인 실시간 페이지
