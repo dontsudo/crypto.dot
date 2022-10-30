@@ -2,5 +2,6 @@
 🐂 chrome extension for watch crypto world!
 
 <p align="center">
-  <img width="382" alt="image" src="https://user-images.githubusercontent.com/50140505/198867609-cf5ea678-1f17-45c4-9e5e-77b91f61e241.png">
+  <img width="690" alt="image" src="https://user-images.githubusercontent.com/50140505/198868251-ccb66c8e-3741-4314-9c95-1675de71672b.png">
 </p>
+
