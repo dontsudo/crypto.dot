@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
 import { Box, Grid, GridItem } from '@chakra-ui/react';
+import React, { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { fetchTickers, selectTicker } from '../../services/ticker/tickerSlice';
-import Loader from '../shared/Loader';
-
 import type { Ticker } from '../../services/ticker/tickerTypes';
+import Loader from '../shared/Loader';
 
 type Direction = 'up' | 'down' | 'maintain';
 
