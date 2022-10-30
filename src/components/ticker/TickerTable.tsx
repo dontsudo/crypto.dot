@@ -28,7 +28,7 @@ const TickerTableRow: React.FC<TickerTableRowProps> = ({ name, value, prevValue 
       templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
       columnGap={2}
       borderBottom="1px"
-      borderBottomColor="gray.200"
+      borderBottomColor="gray.400"
       pt={4}
       pb={4}
     >
