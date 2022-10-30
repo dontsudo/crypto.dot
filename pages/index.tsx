@@ -11,7 +11,7 @@ const Index: NextPage = () => {
       <Header />
       <AssetTable />
       <Flex bg={useColorModeValue('white', 'gray.800')}>
-        <Text>Powered By Bithumb API</Text>
+        <Text>@Powered By Bithumb API</Text>
       </Flex>
     </Container>
   );

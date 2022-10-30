@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import type { TickerResponse } from './tickerTypes';
 
 export const fetchTickers = async () =>

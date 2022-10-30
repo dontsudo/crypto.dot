@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../store';
 import * as tickerAPI from './tickerAPI';
-
 import type { TickerResponse } from './tickerTypes';
 
 export type TickerState = {
@@ -13,8 +12,8 @@ export type TickerState = {
 };
 
 export const fetchTickers = createAsyncThunk('ticker/fetchTickers', async () => {
-  const { data } = await tickerAPI.fetchTickers();
-  return data;
+  const response = await tickerAPI.fetchTickers();
+  return response.data;
 });
 
 const initialState: TickerState = {

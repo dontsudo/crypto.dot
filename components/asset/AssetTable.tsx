@@ -1,12 +1,14 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { includes, pickBy } from 'lodash';
+import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { fetchTickers, selectTicker } from '../../services/ticker/tickerSlice';
 import type { Ticker } from '../../services/ticker/tickerTypes';
 import Loader from '../shared/Loader';
+import AssetSearchBar from './AssetSearchBar';
 
-type Direction = 'up' | 'down' | 'maintain';
+type TrendDirection = 'up' | 'down' | 'maintain';
 
 type AssetTableRowProps = {
   name: string;
@@ -15,7 +17,7 @@ type AssetTableRowProps = {
 };
 
 const AssetTableRow: React.FC<AssetTableRowProps> = ({ name, value, prevValue }) => {
-  const direction: Direction =
+  const direction: TrendDirection =
     prevValue.closing_price < value.closing_price
       ? 'up'
       : prevValue.closing_price > value.closing_price
@@ -56,6 +58,8 @@ const AssetTableRow: React.FC<AssetTableRowProps> = ({ name, value, prevValue })
 };
 
 const AssetTable: React.FC = () => {
+  const [searchValue, setSearchValue] = useState('');
+
   const dispatch = useAppDispatch();
   const { prev, current, isLoading } = useAppSelector(selectTicker);
 
@@ -65,14 +69,17 @@ const AssetTable: React.FC = () => {
     }, 500);
 
     return () => clearInterval(id);
-  }, [dispatch]);
+  }, [current, dispatch, searchValue]);
 
   if (!prev || !current || (!current && isLoading)) {
     return <Loader />;
   }
 
+  const filteredTickers = pickBy(current.data, (_, k) => includes(k.toLowerCase(), searchValue));
+
   return (
     <Box>
+      <AssetSearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
       <Grid
         templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
         columnGap={2}
@@ -93,7 +100,7 @@ const AssetTable: React.FC = () => {
           거래금액 (만원)
         </GridItem>
       </Grid>
-      {Object.entries(current.data).map(([name, value]) => (
+      {Object.entries(filteredTickers).map(([name, value]) => (
         <AssetTableRow key={name} name={name} value={value} prevValue={prev.data[name]} />
       ))}
     </Box>
