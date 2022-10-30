@@ -32,8 +32,11 @@ const TickerTableRow: React.FC<TickerTableRowProps> = ({ name, value, prevValue 
       pt={4}
       pb={4}
     >
-      <GridItem fontWeight="semibold">{name}</GridItem>
+      <GridItem fontSize="0.875rem" fontWeight="semibold">
+        {name}
+      </GridItem>
       <GridItem
+        fontSize="0.875rem"
         textAlign="right"
         outline={trendDirection !== 'maintain' ? '1px solid' : undefined}
         outlineColor={
@@ -44,12 +47,13 @@ const TickerTableRow: React.FC<TickerTableRowProps> = ({ name, value, prevValue 
         {Number(value.closing_price).toLocaleString()}
       </GridItem>
       <GridItem
+        fontSize="0.875rem"
         textAlign="right"
         textColor={+value.fluctate_rate_24H > 0 ? 'green.300' : 'red.300'}
       >
         {Number(value.fluctate_rate_24H)}%
       </GridItem>
-      <GridItem textAlign="right">
+      <GridItem fontSize="0.875rem" textAlign="right">
         {Math.floor(Number(value.acc_trade_value_24H) / 10_000).toLocaleString()}
       </GridItem>
     </Grid>
@@ -104,7 +108,7 @@ const TickerTable: React.FC = () => {
           변동률
         </GridItem>
         <GridItem textAlign="right" fontSize="0.875rem" lineHeight="1.25rem">
-          거래금액 (만원)
+          거래금액(만원)
         </GridItem>
       </Grid>
       {Object.entries(filteredTickers).map(([name, value]) => (
