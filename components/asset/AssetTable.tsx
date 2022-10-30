@@ -75,7 +75,9 @@ const AssetTable: React.FC = () => {
     return <Loader />;
   }
 
-  const filteredTickers = pickBy(current.data, (_, k) => includes(k.toLowerCase(), searchValue));
+  const filteredTickers = pickBy(current.data, (_, k) =>
+    includes(k.toLowerCase(), searchValue.toLowerCase())
+  );
 
   return (
     <Box>
