@@ -6,6 +6,6 @@
 
 🐂 chrome extension for watch crypto world!
 
-## Deom
+## Demo
 
 - https://crypto-dot.vercel.app
