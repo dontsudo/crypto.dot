@@ -2,27 +2,24 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { includes, pickBy } from 'lodash';
 import React, { useEffect, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { fetchTickers, selectTicker } from '../../services/ticker/tickerSlice';
-import type { Ticker } from '../../services/ticker/tickerTypes';
+import { useAppDispatch, useAppSelector } from '../../../../services/hooks';
+import { fetchTickers, selectTicker } from '../../../../services/ticker/tickerSlice';
+import { Ticker } from '../../../../services/ticker/tickerTypes';
 import Loader from '../shared/Loader';
-import AssetSearchBar from './AssetSearchBar';
+import TickerSearchBar from './TickerSearchBar';
 
 type TrendDirection = 'up' | 'down' | 'maintain';
 
-type AssetTableRowProps = {
+type TickerTableRowProps = {
   name: string;
   value: Ticker;
   prevValue: Ticker;
 };
 
-const AssetTableRow: React.FC<AssetTableRowProps> = ({ name, value, prevValue }) => {
-  const direction: TrendDirection =
-    prevValue.closing_price < value.closing_price
-      ? 'up'
-      : prevValue.closing_price > value.closing_price
-      ? 'down'
-      : 'maintain';
+const TickerTableRow: React.FC<TickerTableRowProps> = ({ name, value, prevValue }) => {
+  let trendDirection: TrendDirection = 'maintain';
+  if (prevValue.closing_price < value.closing_price) trendDirection = 'up';
+  else if (prevValue.closing_price > value.closing_price) trendDirection = 'down';
 
   return (
     <Grid
@@ -36,9 +33,9 @@ const AssetTableRow: React.FC<AssetTableRowProps> = ({ name, value, prevValue })
       <GridItem>{name}</GridItem>
       <GridItem
         textAlign="right"
-        outline={direction !== 'maintain' ? '1px solid' : undefined}
+        outline={trendDirection !== 'maintain' ? '1px solid' : undefined}
         outlineColor={
-          direction === 'up' ? 'green.200' : direction === 'down' ? 'red.200' : undefined
+          trendDirection === 'up' ? 'green.200' : trendDirection === 'down' ? 'red.200' : undefined
         }
         textColor={+value.fluctate_rate_24H > 0 ? 'green.200' : 'red.200'}
       >
@@ -57,7 +54,7 @@ const AssetTableRow: React.FC<AssetTableRowProps> = ({ name, value, prevValue })
   );
 };
 
-const AssetTable: React.FC = () => {
+const TickerTable: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
 
   const dispatch = useAppDispatch();
@@ -81,7 +78,7 @@ const AssetTable: React.FC = () => {
 
   return (
     <Box>
-      <AssetSearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
+      <TickerSearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
       <Grid
         templateColumns="1fr minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr)"
         columnGap={2}
@@ -103,10 +100,10 @@ const AssetTable: React.FC = () => {
         </GridItem>
       </Grid>
       {Object.entries(filteredTickers).map(([name, value]) => (
-        <AssetTableRow key={name} name={name} value={value} prevValue={prev.data[name]} />
+        <TickerTableRow key={name} name={name} value={value} prevValue={prev.data[name]} />
       ))}
     </Box>
   );
 };
 
-export default AssetTable;
+export default TickerTable;

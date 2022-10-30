@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import tickerReducer from './ticker/tickerSlice';
 
 export const store = configureStore({

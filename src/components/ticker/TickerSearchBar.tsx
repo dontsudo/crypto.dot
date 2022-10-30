@@ -2,12 +2,12 @@ import { Search2Icon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 
-type AssetSearchBarProps = {
+type TickerSearchBarProps = {
   searchValue: string;
   setSearchValue: (value: string) => void;
 };
 
-const AssetSearchBar: React.FC<AssetSearchBarProps> = ({ searchValue, setSearchValue }) => {
+const TickerSearchBar: React.FC<TickerSearchBarProps> = ({ searchValue, setSearchValue }) => {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchValue(e.target.value);
@@ -25,4 +25,4 @@ const AssetSearchBar: React.FC<AssetSearchBarProps> = ({ searchValue, setSearchV
   );
 };
 
-export default AssetSearchBar;
+export default TickerSearchBar;
