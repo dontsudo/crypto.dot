@@ -38,7 +38,7 @@ const Header: React.FC = () => {
           {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
         </Button>
       </Flex>
-      {bookmarks && (
+      {bookmarks.length && (
         <Box bg={useColorModeValue('gray.100', 'whiteAlpha.100')} borderRadius={12} p={4} mb={4}>
           {bookmarks.map((bookmark) => (
             <Box display="inline-block" w={12} _hover={{ opacity: '0.6' }} m={2}>
