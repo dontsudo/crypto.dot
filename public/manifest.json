@@ -3,7 +3,8 @@
   "description": "watch crypto market 🐂",
   "version": "1.0",
   "manifest_version": 2,
-  "permissions": ["bookmarks", "topSites"],
+  "permissions": ["bookmarks", "topSites", "chrome://favicon/"],
+  "content_security_policy": "img-src chrome://favicon;",
   "browser_action": {
     "default_popup": "index.html",
     "default_title": "watch crypto market 🐂"

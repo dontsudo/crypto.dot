@@ -6,7 +6,7 @@ export type Bookmark = {
 
 const bookmarkAPI = Object.freeze({
   /**
-   * async/await를 지원하지 않아서 Promise 래핑
+   * async/await를 지원하지 않아서 Promise Wrapping
    * @returns {Promise<chrome.bookmarks.BookmarkTreeNode>}
    */
   getTree(): Promise<chrome.bookmarks.BookmarkTreeNode> {

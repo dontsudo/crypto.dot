@@ -1,8 +1,19 @@
-import { Box, Button, Flex, Heading, Link, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Link,
+  Text,
+  useColorMode,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 import React, { useEffect, useState } from 'react';
 
 import bookmarkAPI, { Bookmark } from '../../services/chrome/bookmarkAPI';
+import { getOriginURL } from '../../utils';
 
 const Header: React.FC = () => {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
@@ -27,11 +38,25 @@ const Header: React.FC = () => {
           {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
         </Button>
       </Flex>
-      <Box>
+      <Box bg={useColorModeValue('gray.100', 'whiteAlpha.100')} borderRadius={12} p={4} mb={4}>
         {bookmarks.map((bookmark) => (
-          <Link href={bookmark.url} as={Button} mx={2} my={1} fontSize="2xs" rounded="full">
-            {bookmark.title.length > 7 ? `${bookmark.title.slice(0, 7)}...` : bookmark.title}
-          </Link>
+          <Box display="inline-block" w={12} _hover={{ opacity: '0.6' }} m={2}>
+            <Link href={bookmark.url}>
+              <Image
+                src={
+                  bookmark.url
+                    ? `chrome://favicon/size/24/${getOriginURL(bookmark.url)}`
+                    : undefined
+                }
+                w={6}
+                mx="auto"
+                pb={1}
+              />
+              <Text fontSize="smaller" textAlign="center">
+                {bookmark.title.length > 5 ? `${bookmark.title.slice(0, 5)}...` : bookmark.title}
+              </Text>
+            </Link>
+          </Box>
         ))}
       </Box>
     </Box>
