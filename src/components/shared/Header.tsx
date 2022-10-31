@@ -38,27 +38,29 @@ const Header: React.FC = () => {
           {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
         </Button>
       </Flex>
-      <Box bg={useColorModeValue('gray.100', 'whiteAlpha.100')} borderRadius={12} p={4} mb={4}>
-        {bookmarks.map((bookmark) => (
-          <Box display="inline-block" w={12} _hover={{ opacity: '0.6' }} m={2}>
-            <Link href={bookmark.url}>
-              <Image
-                src={
-                  bookmark.url
-                    ? `chrome://favicon/size/24/${getOriginURL(bookmark.url)}`
-                    : undefined
-                }
-                w={6}
-                mx="auto"
-                pb={1}
-              />
-              <Text fontSize="smaller" textAlign="center">
-                {bookmark.title.length > 5 ? `${bookmark.title.slice(0, 5)}...` : bookmark.title}
-              </Text>
-            </Link>
-          </Box>
-        ))}
-      </Box>
+      {bookmarks && (
+        <Box bg={useColorModeValue('gray.100', 'whiteAlpha.100')} borderRadius={12} p={4} mb={4}>
+          {bookmarks.map((bookmark) => (
+            <Box display="inline-block" w={12} _hover={{ opacity: '0.6' }} m={2}>
+              <Link href={bookmark.url}>
+                <Image
+                  src={
+                    bookmark.url
+                      ? `chrome://favicon/size/24/${getOriginURL(bookmark.url)}`
+                      : undefined
+                  }
+                  w={6}
+                  mx="auto"
+                  pb={1}
+                />
+                <Text fontSize="smaller" textAlign="center">
+                  {bookmark.title.length > 5 ? `${bookmark.title.slice(0, 5)}...` : bookmark.title}
+                </Text>
+              </Link>
+            </Box>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
